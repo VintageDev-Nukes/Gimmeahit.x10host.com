@@ -1,0 +1,54 @@
+<html>
+
+<head>
+	<meta charset='utf-8' />
+	<title>Población mundial</title>
+	<script language="JavaScript">
+
+	function formatNumber(num)
+	{
+	    return ("" + num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, function($1) { return $1 + "." });
+	}
+
+	var yeartime = 365*24*3600;
+	var timepassed = (new Date().getTime()-new Date(2011, 1, 1).getTime())/1000;
+	var curtime = new Date().getTime();
+	var x = 0;
+	var mult = 1; //Multiplicar cada segundo
+	var pnum = 0;
+	var startnum = 7000000000;
+	var num = startnum;
+	var startrate = 0.011691239;
+	var lessrate = 0.00025;
+	var minrate = 0.0015; //Dentro de 38 años (desde 2015) esta variable estará estabilizada
+
+	function main()
+	{
+		num = startnum*(Math.pow(Math.E, (((startrate*(timepassed/yeartime)-lessrate*(timepassed/yeartime)) > minrate) ? startrate*(timepassed/yeartime)-lessrate*(timepassed/yeartime) : minrate)));
+		console.log(formatNumber(Math.round(num-pnum)));
+		pnum = num;
+		document.schuld.schuld.value = formatNumber(Math.round(num));
+		document.schuld.datenum.value = new Date(curtime+x*1000);
+		timepassed += mult;
+		x += mult;
+		setTimeout("main()", 1000);
+	}
+
+	</script>
+</head>
+
+<body bgcolor="#F1F0F1" onload="main();" style="margin:0px;">
+
+<form name="schuld" style="position:relative;top:50%;margin-top:-35.5px;height:71px;">
+<center style="line-height:36px;">
+  <h1 style="display:inline;">Población mundial</h1><br>
+  <input disabled type="text" name="schuld" size="18" style="border: 0px;background: none;text-align:center;" /><br>
+  <input disabled type="text" name="datenum" size="18" style="border: 0px;background: none;text-align:center;" /></center>
+</form>
+<form name="newnow"  style="visibility:hidden;">
+  <input type="text" name="newnow" size="30" />
+</form>
+
+</body>
+
+</html>
